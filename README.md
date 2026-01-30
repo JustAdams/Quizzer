@@ -27,5 +27,4 @@ Construct a JSON question series using the format:
 ]
 ```
 
-and insert into the root directory. Change the name of the file to be either questions.json or change the file name
-inside the source code to match whichever you prefer.
+and insert into the root directory. Run the application with the JSON filename as the only argument.
