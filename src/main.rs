@@ -7,7 +7,6 @@ use std::fs;
 
 slint::include_modules!();
 
-
 #[derive(Deserialize, Clone)]
 struct QuizQuestion {
     question: String,
@@ -19,12 +18,11 @@ struct QuizQuestion {
 fn main() {
     let main_window = AppWindow::new().expect("Failed to create the UI");
 
-    let quiz_content = fs::read_to_string("questions.json").expect("Unable to read file");
-    let quiz_questions: Vec<QuizQuestion> = serde_json::from_str(&quiz_content).expect("Unable to load quiz questions");
+    let quiz_content = fs::read_to_string("../aws_ai.json").expect("Unable to read file");
+    let quiz_questions: Vec<QuizQuestion> =
+        serde_json::from_str(&quiz_content).expect("Unable to load quiz questions");
     let quiz_clone = quiz_questions.clone();
     let cloned_main_window = main_window.clone_strong();
-
-    let mut counter = 0;
 
     // grab a random question
     let mut rng = rand::thread_rng();
@@ -40,10 +38,16 @@ fn main() {
     let cloned_main_window_inner = cloned_main_window.clone_strong();
 
     cloned_main_window.on_select_answer(move |selected_index: i32| {
-        cloned_main_window_inner.set_explanation(question_clone.explanation[selected_index as usize].clone().into());
+        cloned_main_window_inner.set_explanation(
+            question_clone.explanation[selected_index as usize]
+                .clone()
+                .into(),
+        );
         if selected_index == question_clone.correct_answer as i32 {
             cloned_main_window_inner.set_counter(cloned_main_window_inner.get_counter() + 1);
-            cloned_main_window_inner.set_progress(cloned_main_window_inner.get_counter() as f32 / quiz_questions.len() as f32);
+            cloned_main_window_inner.set_progress(
+                cloned_main_window_inner.get_counter() as f32 / quiz_questions.len() as f32,
+            );
             // move to the next question
             //main_window.set_explanation(question_clone.explanation[selected_index as usize].clone().into());
 
@@ -61,5 +65,7 @@ fn main() {
         }
     });
 
-    main_window.run().expect("Issue encountered while running the UI");
+    main_window
+        .run()
+        .expect("Issue encountered while running the UI");
 }
