@@ -3,7 +3,7 @@
 
 use rand::prelude::IndexedRandom;
 use serde::Deserialize;
-use std::fs;
+use std::{env, fs};
 
 slint::include_modules!();
 
@@ -16,11 +16,14 @@ struct QuizQuestion {
 }
 
 fn main() {
-    let main_window = AppWindow::new().expect("Failed to create the UI");
-
-    let quiz_content = fs::read_to_string("../aws_ai.json").expect("Unable to read file");
+    // todo: improve the quiz input UX
+    let args: Vec<String> = env::args().collect();
+    let quiz_path = &args[1];
+    let quiz_content = fs::read_to_string(quiz_path).expect("Unable to read file");
     let quiz_questions: Vec<QuizQuestion> =
         serde_json::from_str(&quiz_content).expect("Unable to load quiz questions");
+
+    let main_window = AppWindow::new().expect("Failed to create the UI");
     let quiz_clone = quiz_questions.clone();
     let cloned_main_window = main_window.clone_strong();
 
