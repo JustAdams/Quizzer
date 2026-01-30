@@ -1,6 +1,7 @@
 # Quizzer
 
 Basic Slint desktop application built to study for exams.
+<img width="1113" height="208" alt="image" src="https://github.com/user-attachments/assets/ef29b67c-362a-424b-91c1-e2733eb541cc" />
 
 # Usage
 
