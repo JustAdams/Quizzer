@@ -35,7 +35,7 @@ export component AppWindow inherits Window {
             row: 0;
             score := Text {
                 font-size: 15px;
-                text: "correct: " + counter;
+                text: "streak: " + counter;
                 vertical-alignment: TextVerticalAlignment.top;
                 wrap: TextWrap.word-wrap;
             }
@@ -48,6 +48,7 @@ export component AppWindow inherits Window {
         GridLayout {
             row: 2;
             colspan: 2;
+            spacing: 10px;
             Button {
                 text: answer_0;
                 row: 0;
@@ -88,7 +89,7 @@ export component AppWindow inherits Window {
 
         explanation-txt := Text {
             row: 3;
-            font-size: 30px;
+            font-size: 25px;
             horizontal-alignment: TextHorizontalAlignment.center;
             vertical-alignment: TextVerticalAlignment.center;
             text: explanation;
